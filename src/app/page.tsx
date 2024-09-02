@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Try from "./try/page";
+export const runtime = 'edge'
 
 export default function Home() {
   return (

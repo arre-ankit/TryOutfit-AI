@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+export const runtime = 'edge';
+
 const Try = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [amazonLink, setAmazonLink] = useState<string>('');
