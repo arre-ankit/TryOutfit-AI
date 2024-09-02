@@ -69,66 +69,79 @@ const Try = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-background">
-            <div className="max-w-md w-full px-4 sm:px-6">
-                <h1 className="text-5xl font-bold text-center mb-6">Process Images</h1>
-                <p className="text-muted-foreground text-center mb-8">
-                    Upload an image and provide an Amazon link, and we'll process it for you.
-                </p>
-                <div className="bg-card p-6 rounded-lg shadow-lg">
-                    <div className="grid gap-6">
-                        <div>
-                            <Label htmlFor="amazon-link">Amazon Link</Label>
-                            <Input
-                                id="amazon-link"
-                                type="text"
-                                value={amazonLink}
-                                onChange={handleAmazonLinkChange}
-                                placeholder="https://www.amazon.com/..."
+        <div className="max-w-md w-full px-4 sm:px-6">
+            <h1 className="text-5xl font-bold text-center mb-6">Try Outfit</h1>
+            <p className="text-muted-foreground text-center mb-8">
+                Upload an image and provide an Amazon link, and we'll process it for you.
+            </p>
+            <div className="bg-card p-6 rounded-lg shadow-lg">
+                <div className="grid gap-6">
+                    <div>
+                        <Label htmlFor="amazon-link">Amazon Link</Label>
+                        <Input
+                            id="amazon-link"
+                            type="text"
+                            value={amazonLink}
+                            onChange={handleAmazonLinkChange}
+                            placeholder="https://www.amazon.com/..."
+                        />
+                    </div>
+                    <div>
+                        <Label>Upload Image</Label>
+                        <div
+                            className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-muted rounded-md relative cursor-pointer overflow-hidden"
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className="absolute w-full h-full opacity-0 cursor-pointer"
                             />
+                            {imagePreview ? (
+                                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                            ) : (
+                                <Button variant="outline" size="icon" className="w-full h-full">
+                                    <div className="w-8 h-8 text-muted-foreground" />
+                                    <span className="sr-only">Upload image</span>
+                                </Button>
+                            )}
                         </div>
-                        <div>
-                            <Label>Upload Image</Label>
-                            <div
-                                className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-muted rounded-md relative cursor-pointer overflow-hidden"
-                                onClick={() => fileInputRef.current?.click()}
-                            >
-                                <input
-                                    ref={fileInputRef}
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    className="absolute w-full h-full opacity-0 cursor-pointer"
-                                />
-                                {imagePreview ? (
-                                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                                ) : (
-                                    <Button variant="outline" size="icon" className="w-full h-full">
-                                        <div className="w-8 h-8 text-muted-foreground" />
-                                        <span className="sr-only">Upload image</span>
-                                    </Button>
-                                )}
-                            </div>
-                        </div>
-                        {loading ? (
-                            <Button size="lg" className="w-full" disabled>
-                                Processing...
-                            </Button>
-                        ) : (
-                            <Button size="lg" className="w-full" onClick={handleProcessImages}>
+                    </div>
+                    {loading ? (
+                        <Button size="lg" className="w-full" disabled>
+                            Processing...
+                        </Button>
+                    ) : (
+                        <Button size="lg" className="w-full" onClick={handleProcessImages}>
                             Process Images
                         </Button>
-                        )}
-                        
-                        {imageUrl && (
-                            <div className="mt-4">
-                                <Label>Processed Image:</Label>
-                                <img src={imageUrl} alt="Processed" className="w-full h-full object-cover" />
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
+
+        <div className="flex justify-center mt-8 w-full px-4 sm:px-6">
+            <div className="flex w-96">
+                {/* Uploaded Image */}
+                {imagePreview && (
+                    <div className="w-1/2 pr-2">
+                        <Label>Uploaded Image:</Label>
+                        <img src={imagePreview} alt="Uploaded" className="w-full h-auto object-cover" />
+                    </div>
+                )}
+                {/* Processed Image */}
+                {imageUrl && (
+                    <div className="w-1/2 pl-2">
+                        <Label>Processed Image:</Label>
+                        <img src={imageUrl} alt="Processed" className="w-full h-auto object-cover" />
+                    </div>
+                )}
+            </div>
+        </div>
+    </div>
+
     );
 };
 
