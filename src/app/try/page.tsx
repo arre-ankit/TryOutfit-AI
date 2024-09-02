@@ -10,6 +10,10 @@ const Try = () => {
     const [amazonLink, setAmazonLink] = useState<string>('');
     const [shareableLink, setShareableLink] = useState<string | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // Ref for the file input
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : null;
@@ -18,9 +22,6 @@ const Try = () => {
             reader.onloadend = () => {
                 const base64data = reader.result as string;
                 setImagePreview(base64data);
-                console.log("Image converted to URL:", base64data);
-
-                // Set the shareable link (base64 URL)
                 setShareableLink(base64data);
             };
             reader.readAsDataURL(file);
@@ -31,28 +32,27 @@ const Try = () => {
         setAmazonLink(event.target.value);
     };
 
-    const handleProcessImages = async() => {
+    const handleProcessImages = async () => {
+        setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('http://localhost:3001/process-images', { // Adjust the URL if your backend is hosted differently
+                const response = await fetch('http://localhost:3001/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        amazon_img_url: shareableLink,
-                        model_img_url: amazonLink,
+                        amazon_img_url: amazonLink,
+                        model_img_url: shareableLink,
                     }),
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('API Response:', data);
-
-                    // Extract URL from API response
                     if (Array.isArray(data) && data.length > 0) {
                         const responseUrl = data[0]?.url;
                         setImageUrl(responseUrl || null);
+                        setLoading(false);
                     }
                 } else {
                     console.error('Error fetching data from API');
@@ -68,9 +68,9 @@ const Try = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-background">
             <div className="max-w-md w-full px-4 sm:px-6">
-                <h1 className="text-3xl font-bold text-center mb-6">Process Images</h1>
+                <h1 className="text-5xl font-bold text-center mb-6">Process Images</h1>
                 <p className="text-muted-foreground text-center mb-8">
-                    Upload an image or provide an Amazon link, and we'll process it for you.
+                    Upload an image and provide an Amazon link, and we'll process it for you.
                 </p>
                 <div className="bg-card p-6 rounded-lg shadow-lg">
                     <div className="grid gap-6">
@@ -88,10 +88,10 @@ const Try = () => {
                             <Label>Upload Image</Label>
                             <div
                                 className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-muted rounded-md relative cursor-pointer overflow-hidden"
-                                onClick={() => document.getElementById('file-input')?.click()}
+                                onClick={() => fileInputRef.current?.click()}
                             >
                                 <input
-                                    id="file-input"
+                                    ref={fileInputRef}
                                     type="file"
                                     accept="image/*"
                                     onChange={handleFileChange}
@@ -107,15 +107,20 @@ const Try = () => {
                                 )}
                             </div>
                         </div>
-                        <Button size="lg" className="w-full" onClick={handleProcessImages}>
+                        {loading ? (
+                            <Button size="lg" className="w-full" disabled>
+                                Processing...
+                            </Button>
+                        ) : (
+                            <Button size="lg" className="w-full" onClick={handleProcessImages}>
                             Process Images
                         </Button>
+                        )}
+                        
                         {imageUrl && (
                             <div className="mt-4">
-                                <Label>Processed Image URL:</Label>
-                                <a href={imageUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                                    {imageUrl}
-                                </a>
+                                <Label>Processed Image:</Label>
+                                <img src={imageUrl} alt="Processed" className="w-full h-full object-cover" />
                             </div>
                         )}
                     </div>
