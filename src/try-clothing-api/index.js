@@ -4,10 +4,10 @@ import cors from 'cors';
 import { Client } from '@gradio/client';
 
 const app = express();
-app.use(express.json({ limit: '10mb' })); 
+app.use(express.json({ limit: '10mb' }));
 
 app.use(cors({
-  origin: '*', 
+  origin: '*',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
@@ -38,20 +38,28 @@ app.post('/process-images', async (req, res) => {
     const response1 = await fetch(amazonImageUrl);
     const exampleImage_a = await response1.blob();
 
-    // Connect to Gradio client
-    const client = await Client.connect("Kwai-Kolors/Kolors-Virtual-Try-On");
-    const result = await client.predict("/tryon", {
-      person_img: exampleImage,
-      garment_img: exampleImage_a,
-      seed: 0,
-      randomize_seed: true,
+    const client = await Client.connect("Nymbo/Virtual-Try-On");
+
+    // Improved error handling with detailed error logging
+    const result = await client.predict("/tryon", [
+      {"background":exampleImage,"layers":[],"composite":null}, 
+      exampleImage_a,
+      "Hello!!",
+      true,
+      true,
+      25,
+      25,
+    ]).catch(error => {
+      console.error("Prediction Error Details:", JSON.stringify(error, null, 2));
+      throw new Error(`Prediction Error: ${error.message || JSON.stringify(error)}`);
     });
 
     // Return result
+    console.log(result);
     res.json(result.data);
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).send('An error occurred');
+    res.status(500).send(`An error occurred: ${error.message}`);
   }
 });
 
