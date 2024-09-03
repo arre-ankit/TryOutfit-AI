@@ -55,7 +55,6 @@ app.post('/process-images', async (req, res) => {
     });
 
     // Return result
-    console.log(result);
     res.json(result.data);
   } catch (error) {
     console.error('Error:', error);

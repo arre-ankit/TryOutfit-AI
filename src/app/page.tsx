@@ -1,9 +1,18 @@
+import React from 'react';
+import HeroSection from '@/components/HeroSection';
+import EndSection from '@/components/EndSection';
+import ModeToggle from '@/components/Toggle';
+
 export const runtime = 'edge'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hi there
-    </main>
+    <div className='grid-cols-3'>
+      <div className='flex justify-end mx-4 my-4'>
+      <ModeToggle />
+      </div>
+      <HeroSection />
+      <EndSection/>
+    </div>
   );
 }

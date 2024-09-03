@@ -8,6 +8,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ['pbs.twimg.com','m.media-amazon.com'],
+  },
+};
+
 
 export default nextConfig;

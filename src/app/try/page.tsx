@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FiUpload } from "react-icons/fi";
+import ModeToggle from '@/components/Toggle';
 
 export const runtime = 'edge';
 
@@ -69,6 +71,9 @@ const Try = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+            <div className='flex justify-start mx-32'>
+                <ModeToggle />
+            </div>
         <div className="max-w-md w-full px-4 sm:px-6">
             <h1 className="text-5xl font-bold text-center mb-6">Try Outfit</h1>
             <p className="text-muted-foreground text-center mb-8">
@@ -103,6 +108,7 @@ const Try = () => {
                                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                             ) : (
                                 <Button variant="outline" size="icon" className="w-full h-full">
+                                <FiUpload className='flex justify-center items-center w-10 h-10' />
                                     <div className="w-8 h-8 text-muted-foreground" />
                                     <span className="sr-only">Upload image</span>
                                 </Button>
