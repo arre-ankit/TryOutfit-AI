@@ -7,10 +7,10 @@ const content = [
   {
     title: "Amazon Link",
     description:
-      "Paste the link of clothes you want to try on and see how it looks on you.",
+    "Got an Amazon link to some fire outfits?🔥 Drop it here and instantly see how they look on you. No more guessing—just pure, real-time style that’s all about you. Upgrade your fit game and see the drip before you buy.",
     content: (
         <Image
-          src="/demo.png"
+          src="/amazon.png"
           width={300}
           height={300}
           className="h-full w-full object-cover"
@@ -21,7 +21,7 @@ const content = [
   {
     title: "Upload your picture",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
+    "Upload your picture from your device and watch how the clothes look on you in real-time. No more guessing—just see how each outfit fits your style perfectly before you make a decision. It’s all about effortless, instant style",
     content: (
         <Image
           src="/demo.png"
@@ -35,10 +35,10 @@ const content = [
   {
     title: "Result",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Instantly see yourself in the latest looks. No hassle, no lag—just snap, style, and slay. Just snap a pic, and instantly see yourself in the hottest looks. Say goodbye to the guesswork—stay fresh, stay fierce, and keep your vibe on point without breaking a sweat. Get ready to slay every day!",
     content: (
         <Image
-          src="/demo.png"
+          src="/result.png"
           width={300}
           height={300}
           className="h-full w-full object-cover"
@@ -49,7 +49,7 @@ const content = [
 ];
 export default function EndSection() {
   return (
-    <div className="p-10 my-56">
+    <div className="p-10 my-14">
       <StickyScroll content={content} />
     </div>
   );
