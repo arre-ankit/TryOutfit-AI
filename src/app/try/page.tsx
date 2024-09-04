@@ -43,7 +43,7 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('http://localhost:3001/process-images', {
+                const response = await fetch('https://try-clothing-api-production.up.railway.app/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
