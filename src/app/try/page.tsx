@@ -8,6 +8,9 @@ import { FiUpload } from "react-icons/fi";
 import ModeToggle from '@/components/Toggle';
 import { AiFillHome } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
+import { Card } from "@/components/ui/card";
+import { MdOutlineFileDownload } from "react-icons/md";
+import { FaLink } from "react-icons/fa";
 
 export const runtime = 'edge';
 
@@ -72,6 +75,19 @@ const Try = () => {
         }
     };
 
+    const handleDownload = (imageUrl: string) => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'image.png';
+        link.click();
+    };
+
+    const handleCopyLink = (imageUrl: string) => {
+        navigator.clipboard.writeText(imageUrl).then(() => {
+            alert("Image link copied to clipboard");
+        });
+    };
+
     return (
         <div>
             <div className='flex justify-between bg-background px-4 py-4'>
@@ -110,7 +126,7 @@ const Try = () => {
                                     className="absolute w-full h-full opacity-0 cursor-pointer"
                                 />
                                 {imagePreview ? (
-                                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                                    <img src={imagePreview} alt="Preview" className="w-fit h-fit " />
                                 ) : (
                                     <Button variant="outline" size="icon" className="w-full h-full">
                                     <FiUpload className='flex justify-center items-center w-10 h-10' />
@@ -133,21 +149,46 @@ const Try = () => {
                 </div>
             </div>
 
+            
             <div className="flex justify-center mt-8 w-full px-4 sm:px-6">
-                <div className="flex w-96">
-                    {/* Uploaded Image */}
+                <div className="flex w-full max-w-xl gap-4">
                     {imagePreview && (
-                        <div className="w-1/2 pr-2">
-                            <Label>Uploaded Image:</Label>
-                            <img src={imagePreview} alt="Uploaded" className="w-full h-auto object-cover" />
+                    <Card className="relative w-full max-w-sm overflow-hidden rounded-lg">
+                        <img
+                        src={imagePreview}
+                        width="600"
+                        height="400"
+                        alt="Uploaded Image"
+                        className="h-[400px] w-full object-cover"
+                        style={{ aspectRatio: "600/400", objectFit: "cover" }}
+                        />
+                        <div className="absolute top-4 right-4 flex gap-2">
+                        <Button variant="ghost" size="sm" onClick={() => handleDownload(imagePreview)}>
+                            <MdOutlineFileDownload className="h-4 w-4" />
+                        </Button>
                         </div>
+                    </Card>
                     )}
-                    {/* Processed Image */}
+
                     {imageUrl && (
-                        <div className="w-1/2 pl-2">
-                            <Label>Processed Image:</Label>
-                            <img src={imageUrl} alt="Processed" className="w-full h-auto object-cover" />
+                    <Card className="relative w-full max-w-md overflow-hidden rounded-lg">
+                        <img
+                        src={imageUrl}
+                        width="600"
+                        height="400"
+                        alt="Processed Image"
+                        className="h-[400px] w-full object-cover"
+                        style={{ aspectRatio: "600/400", objectFit: "cover" }}
+                        />
+                        <div className="absolute top-4 right-4 flex gap-2">
+                        <Button variant="ghost" size="sm"  onClick={() => handleDownload(imageUrl)} >
+                            <MdOutlineFileDownload className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => handleCopyLink(imageUrl)} >
+                            <FaLink className="h-4 w-4" />
+                        </Button>
                         </div>
+                    </Card>
                     )}
                 </div>
             </div>
