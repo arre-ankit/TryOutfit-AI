@@ -39,6 +39,9 @@ const Try = () => {
     };
 
     const handleAmazonLinkChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(amazonLink === '') {
+            
+        }
         setAmazonLink(event.target.value);
     };
 
@@ -46,7 +49,7 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('https://try-clothing-api-production.up.railway.app/process-images', {
+                const response = await fetch('https://chothing-api.arre-ankit.me/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
