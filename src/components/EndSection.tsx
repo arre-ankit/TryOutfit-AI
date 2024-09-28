@@ -25,7 +25,7 @@ export default function EndSection() {
               <Badge className="h-10 w-10 transform -rotate-12" />
             </Link>
           }
-          src={`/Screenshot 2024-09-13 020521.webp`}
+          src={`/code.webp`}
           showGradient={false}
         />
 
