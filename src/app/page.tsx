@@ -3,7 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import EndSection from '@/components/EndSection';
 import ModeToggle from '@/components/Toggle';
 import { FaGithub } from "react-icons/fa";
-import { redirect } from 'next/navigation';
+
 
 export const runtime = 'edge'
 
@@ -16,8 +16,10 @@ export default function Home() {
       </a>
       <ModeToggle />
       </div>
+      <section style={{backgroundImage: `url('/stars.png')`}}>
       <HeroSection />
       <EndSection/>
+      </section>
     </div>
   );
 }

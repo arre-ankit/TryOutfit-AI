@@ -89,7 +89,7 @@ function HeroSection() {
           <div>
             <Compare
               firstImage={imageUrl}
-              secondImage="https://nymbo-virtual-try-on.hf.space/file=/tmp/gradio/81df7495100310c18c7dab00b20a36036f2681ca/image.png"
+              secondImage="/ankit.jpg"
               firstImageClassName="object-cover object-left-top"
               secondImageClassname="object-cover object-left-top"
               className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] lg:h-[400px] lg:w-[300px]"
