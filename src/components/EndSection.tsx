@@ -9,7 +9,6 @@ export default function EndSection() {
   const router = useRouter();
 
   const handleClick = () => {
-    console.log('Button clicked');
     router.push("/try");
   };
 
@@ -30,7 +29,7 @@ export default function EndSection() {
           showGradient={false}
         />
 
-        <Button onClick={() =>{router.push("/try")}} className="mb-40 mx-96 ">
+        <Button onClick={handleClick} className="mb-40 mx-96 ">
           Try Now
         </Button>
     </div>
