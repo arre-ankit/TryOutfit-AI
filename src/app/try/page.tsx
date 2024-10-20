@@ -49,7 +49,7 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('https://chothing-api.arre-ankit.me/process-images', {
+                const response = await fetch('https://try-outfit-backend.arre-ankit.me/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
