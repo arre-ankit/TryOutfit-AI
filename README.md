@@ -48,7 +48,7 @@ Built with:
 1. Clone the repo
 
 ```bash
-git clone https://github.com/arre-ankit/try-your-outfit.git
+git clone https://github.com/arre-ankit/TryOutfit-AI.git
 ```
 
 2. Set up the Next.js app
