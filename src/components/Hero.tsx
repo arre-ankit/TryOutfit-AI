@@ -6,8 +6,9 @@ import { DirectionAwareHover } from "@/components/ui/direction-aware-hover"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const imageUrl = "https://pbs.twimg.com/profile_images/1818301278193344512/jaLsFM6-_400x400.jpg";
-const imgUrl = "https://m.media-amazon.com/images/I/71mmZUZ6JbL._SY741_.jpg";
+const imageUrl = "https://www.outfitsai.com/_next/image?url=/Original.jpg&w=640&q=75";
+const productUrl = "https://image1.superdry.com/static/images/optimised/zoom/upload9223368955665344016.jpg";
+const outfitUrl = "https://www.outfitsai.com/_next/image?url=/s2.jpg&w=640&q=75";
 
 export default function Hero() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function Hero() {
                     </div>
 
                     <div className="min-w-[250px]">
-                      <DirectionAwareHover imageUrl={imgUrl} className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px] relative overflow-hidden rounded-lg">
+                      <DirectionAwareHover imageUrl={productUrl} className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px] relative overflow-hidden rounded-lg">
                         <p className="font-bold text-xl">Amazon Outfit</p>
                       </DirectionAwareHover>
                       <p className="font-bold text-2xl mt-4 lg:mt-6 text-center">Amazon Outfit</p>
@@ -52,7 +53,7 @@ export default function Hero() {
                     <div className="min-w-[250px]">
                       <Compare
                         firstImage={imageUrl}
-                        secondImage="/ankit.jpg"
+                        secondImage={outfitUrl}
                         firstImageClassName="object-cover object-left-top"
                         secondImageClassname="object-cover object-left-top"
                         className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px]"

@@ -37,7 +37,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['pbs.twimg.com','m.media-amazon.com'],
+    domains: ['pbs.twimg.com','m.media-amazon.com','www.outfitsai.com','image1.superdry.com'],
   },
 };
 
