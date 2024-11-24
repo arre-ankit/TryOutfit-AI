@@ -32,30 +32,30 @@ export default function Hero() {
             </div>
 
             <div className="mt-20 relative">
-              <div className="h-[600px] rounded-lg border border-white/10 bg-black/30 backdrop-blur">
-                <div className="flex justify-center items-center h-full">
-                  <div className="flex flex-col lg:flex-row lg:space-x-8 items-center lg:space-y-0 space-y-10">
-                    <div>
-                      <DirectionAwareHover imageUrl={imageUrl} className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] lg:h-[400px] lg:w-[300px]">
+              <div className="h-auto min-h-[600px] rounded-lg border border-white/10 bg-black/30 backdrop-blur p-4">
+                <div className="flex justify-center items-center h-full mt-20">
+                  <div className="flex flex-col lg:flex-row lg:space-x-8 items-center lg:space-y-0 space-y-10 max-w-full overflow-x-auto">
+                    <div className="min-w-[250px]">
+                      <DirectionAwareHover imageUrl={imageUrl} className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px]">
                         <p className="font-bold text-xl">Your Picture</p>
                       </DirectionAwareHover>
                       <p className="font-bold text-2xl mt-4 lg:mt-6 text-center">You</p>
                     </div>
 
-                    <div>
-                      <DirectionAwareHover imageUrl={imgUrl} className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] lg:h-[400px] lg:w-[300px] relative overflow-hidden rounded-lg">
+                    <div className="min-w-[250px]">
+                      <DirectionAwareHover imageUrl={imgUrl} className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px] relative overflow-hidden rounded-lg">
                         <p className="font-bold text-xl">Amazon Outfit</p>
                       </DirectionAwareHover>
                       <p className="font-bold text-2xl mt-4 lg:mt-6 text-center">Amazon Outfit</p>
                     </div>
 
-                    <div>
+                    <div className="min-w-[250px]">
                       <Compare
                         firstImage={imageUrl}
                         secondImage="/ankit.jpg"
                         firstImageClassName="object-cover object-left-top"
                         secondImageClassname="object-cover object-left-top"
-                        className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] lg:h-[400px] lg:w-[300px]"
+                        className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px]"
                         slideMode="hover"
                       />
                       <p className="font-bold text-2xl mt-4 lg:mt-6 text-center">Your's Look</p>
