@@ -1,5 +1,6 @@
 
-![image](https://github.com/user-attachments/assets/e1ccd982-c6b4-4d89-85fd-0c80b5034bba)
+![image](https://github.com/user-attachments/assets/88531ff7-feb1-4bc8-934f-cddd115c2398)
+
 
 
 # Try Your Outfit
