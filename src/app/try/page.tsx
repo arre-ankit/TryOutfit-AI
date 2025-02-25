@@ -14,6 +14,17 @@ import { FaLink } from "react-icons/fa";
 
 export const runtime = 'edge';
 
+interface ImageResponse {
+    images: {
+        url: string;
+        content_type: string;
+        file_name: string;
+        file_size: number;
+        width: number;
+        height: number;
+    }[];
+}
+
 const Try = () => {
     const router = useRouter();
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -49,7 +60,7 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('https://outfit-backend.arre-ankit.me/process-images', {
+                const response = await fetch('http://localhost:3005/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -60,16 +71,11 @@ const Try = () => {
                     }),
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        const responseUrl = data[0]?.url;
-                        setImageUrl(responseUrl || null);
-                        setLoading(false);
-                    }
-                } else {
-                    console.error('Error fetching data from API');
-                }
+                // Cast the response to the ImageResponse type
+                const data: ImageResponse = await response.json();
+                const responseUrl = data.images[0].url;
+                setImageUrl(responseUrl || null);
+                setLoading(false);
             } catch (error) {
                 console.error('Error calling API:', error);
             }
