@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
 import { Client } from '@gradio/client';
+import { fal } from "@fal-ai/client";
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
@@ -12,8 +13,11 @@ app.use(cors({
   allowedHeaders: ['Content-Type']
 }));
 
+fal.config({
+  credentials: 'f16e0d3b-feff-446c-94c8-7a14294965f1:b9b1d99e767b48610299647e61d0ae20'
+});
 // Utility function to fetch and return blob data from a URL
-const fetchImageAsBlob = async (url) => {
+const fetchImageAsBlob = async (url, retries = 3) => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -22,7 +26,11 @@ const fetchImageAsBlob = async (url) => {
     return await response.blob();
   } catch (error) {
     console.error(`Error fetching image from ${url}:`, error);
-    throw error;
+    if (retries > 0) {
+      console.log(`Retrying... (${3 - retries + 1})`);
+      return fetchImageAsBlob(url, retries - 1); // Retry fetching the image
+    }
+    throw error; // Rethrow the error if no retries left
   }
 };
 
@@ -55,30 +63,46 @@ app.post('/process-images', async (req, res) => {
       fetchImageAsBlob(amazonImageUrl)
     ]);
 
-    const client = await Client.connect("Nymbo/Virtual-Try-On");
+    console.log(exampleImage,exampleImage_a)
 
-    const result = await client.predict("/tryon", [
-      { "background": exampleImage, "layers": [], "composite": null }, 
-      exampleImage_a,
-      "Hello!!",
-      true,
-      true,
-      25,
-      25,
-    ]).catch(error => {
-      console.error("Prediction Error Details:", JSON.stringify(error, null, 2));
-      throw new Error(`Prediction Error: ${error.message || JSON.stringify(error)}`);
+    // const client = await Client.connect("Kwai-Kolors/Kolors-Virtual-Try-On");
+    // const result = await client.predict("/tryon", { 
+		// 		person_img: exampleImage, 
+		// 		garment_img: exampleImage_a, 		
+		// seed: 0, 		
+		// randomize_seed: true, 
+    // }).catch(error => {
+    //   console.error("Prediction Error Details:", JSON.stringify(error, null, 2));
+    //   throw new Error(`Prediction Error: ${error.message || JSON.stringify(error)}`);
+    // });
+
+    const result = await fal.subscribe("fashn/tryon", {
+      input: {
+        model_image: exampleImage,
+        garment_image: exampleImage_a,
+        category: "tops"
+      },
+      logs: true,
+      onQueueUpdate: (update) => {
+        if (update.status === "IN_PROGRESS") {
+          update.logs.map((log) => log.message).forEach(console.log);
+        }
+      },
     });
+    
 
     res.json(result.data);
   } catch (error) {
     console.error('Error:', error);
+    if (error.code === 'ENOTFOUND') {
+      return res.status(400).send('The specified URL could not be found. Please check the URL and try again.');
+    }
     res.status(500).send(`An error occurred: ${error.message}`);
   }
 });
 
 app.listen(3005, () => {
-    console.log('Backend service is running on port 3005');
-  });  
+  console.log('Backend service is running on port 3005');
+});
 
 export default app;
