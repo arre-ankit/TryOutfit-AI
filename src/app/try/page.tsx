@@ -60,7 +60,7 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('http://localhost:3005/process-images', {
+                const response = await fetch('https://try-clothing-api.onrender.com/process-images', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
