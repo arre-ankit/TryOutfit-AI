@@ -60,16 +60,15 @@ const Try = () => {
         setLoading(true);
         if (amazonLink && shareableLink) {
             try {
-                const response = await fetch('https://try-clothing-api.onrender.com/process-images', {
+                const response = await fetch('/api/proxy', { 
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         amazon_img_url: amazonLink,
                         model_img_url: shareableLink,
                     }),
                 });
+                
 
                 // Cast the response to the ImageResponse type
                 const data: ImageResponse = await response.json();
